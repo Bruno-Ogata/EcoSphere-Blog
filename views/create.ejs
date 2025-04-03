@@ -1,0 +1,61 @@
+<!-- Header -->
+<%- include("partials/header.ejs") %>
+
+<!-- show the form (to create a post - {title, message, files if necessary (videos, music or photos)}) -->
+
+<% if(locals.post) { %>
+    <form action="/Repost" method="POST">
+        <div class="form-post">
+            <h1>Criar novo post</h1>
+            <div class="form-group">
+                <p>Título:</p>
+                <input type="text" name="Title" class="form-input" value="<%= post.title %>"/>
+            </div>
+            <div class="form-group">
+                <p>Resumo:</p>
+                <textarea name="Resume" class="form-input" placeholder="Resumo (máx 200 caracteres)" maxlength="200"><%= post.resume %></textarea>
+            </div>
+            <div class="form-group">
+                <p>Conteúdo:</p>
+                <textarea name="Content" class="form-input content" rows="9"><%= post.content %></textarea>
+            </div>
+            <div class="form-group">
+                <p>Imagem:</p>
+                <input type="file" name="Multimidia" class="form-input" accept="image/*"/> 
+            </div>
+            <div class="form-buttons">
+                <button type="submit" formaction="/Cancel" class="button-post">Cancelar</button>
+                <input type="submit" value="Repostar" class="button-post" /> 
+            </div>
+        </div>
+    </form>
+<% } else { %>
+    <form action="/Create" method="POST">
+        <div class="form-post">
+            <h1>Criar novo post</h1>
+            <div class="form-group">
+                <p>Título:</p>
+                <input type="text" name="Title" class="form-input"/>
+            </div>
+            <div class="form-group">
+                <p>Resumo:</p>
+                <textarea name="Resume" class="form-input" placeholder="Resumo (máx 200 caracteres)" maxlength="200"></textarea>
+            </div>
+            <div class="form-group">
+                <p>Conteúdo:</p>
+                <textarea name="Content" class="form-input content" rows="9"></textarea>
+            </div>
+            <div class="form-group">
+                <p>Imagem:</p>
+                <input type="file" name="Multimidia" class="form-input" accept="image/*"/> 
+            </div>
+            <div class="form-buttons">
+                <button type="submit" formaction="/Cancel" class="button-post">Cancelar</button>
+                <input type="submit" value="Postar" class="button-post"/>
+            </div>
+        </div>
+    </form>
+<% } %>
+
+<!-- Footer -->
+<%- include("partials/footer.ejs") %>   

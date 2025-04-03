@@ -1,0 +1,26 @@
+<%- include("partials/header.ejs") %>
+
+
+<div class="post-view"> 
+    <h1> <%= post.title %> </h1>
+    <p> <%= post.content %> </p>
+    <% if(post.multimidia) { %>
+        <img src="<%= post.multimidia %>" alt="Imagem do post" style="max-width: 100%; height: auto;" />
+    <% } %>
+    <form action="/Details" method="POST" id="actionForm" class="form-edit-delete">
+        <input type="hidden" name="action" id="actionInput" value="" />
+        <input type="hidden" name="index" id="actionIndex" value="<%= idx %>" />
+        <input type="button" class="post-button" value="Edit" onclick="setAction('<%= idx %>', 'edit')" />
+        <input type="button" class="post-button" value="Delete" onclick="setAction('<%= idx %>','delete')" />
+    </form>
+</div>
+
+<script>
+    function setAction(index, action) {
+        document.getElementById(`actionInput`).value = action;
+        document.getElementById(`actionForm`).submit();
+    }
+</script>
+
+
+<%- include("partials/footer.ejs") %>

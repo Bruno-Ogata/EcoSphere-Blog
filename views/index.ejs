@@ -1,0 +1,177 @@
+<!-- Header -->
+<%- include("partials/header.ejs") %>
+
+<!-- show all the post made during the session -->
+<div class="hero">
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img src="images/mundo.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 lh-1 mb-3">Transforme seu estilo de vida com práticas sustentáveis</h1>
+            <!-- <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p> -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Leia Mais</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+    <div class="feed">
+        <% if(posts.length !== 0) { %>
+            <% if(posts.length > 2) { %> <%# Criar carrossel com o top 3 primeiros posts, caso haja %>
+                <div class="carrossel">
+                    <div class="container marketing">
+                        <h1>Posts Destacados</h1>
+                        <!-- Three columns of text below the carousel -->
+                        <div class="row">
+                        <div class="col-lg-4">
+                            <!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg> -->
+                            <img class="img-carrossel" src="images/lampada.png" alt="lampada ecologica">
+                            <h2 class="fw-normal"><%= posts[0].title %></h2>
+                            <p><%= posts[0].resume %></p>
+                            <p><a class="btn btn-secondary" href="/Details1">Ver detalhes »</a></p>
+                        </div><!-- /.col-lg-4 -->
+                        <div class="col-lg-4">
+                            <!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg> -->
+                            <img class="img-carrossel" src="images/reciclagem.png" alt="reciclagem">
+                            <h2 class="fw-normal"><%= posts[1].title %></h2>
+                            <p><%= posts[1].resume %></p>
+                            <p><a class="btn btn-secondary" href="/Details2">Ver detalhes »</a></p>
+                        </div><!-- /.col-lg-4 -->
+                        <div class="col-lg-4">
+                            <!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg> -->
+                            <img class="img-carrossel" src="images/casa.png" alt="casa ecologica">
+                            <h2 class="fw-normal"><%= posts[2].title %></h2>
+                            <p><%= posts[2].resume %></p>
+                            <p><a class="btn btn-secondary" href="/Details3">Ver detalhes »</a></p>
+                        </div><!-- /.col-lg-4 -->
+                        </div><!-- /.row -->                
+                    </div>
+                </div>
+                <hr />
+            <% } %>
+            <div class="blog-body">
+                <div class="posts">
+                    <% for(var i=0; i<posts.length; i++) { %>
+                        <%# Criar cada um dos posts num loop %>
+                        <div class="post"> 
+                            <h1> <%= posts[i].title %> </h1>
+                            <p> <%= posts[i].resume %> </p>
+                            <% if(posts[i].multimidia) { %>
+                                <img src="<%= posts[i].multimidia %>" alt="Imagem do post" style="max-width: 100%; height: auto;" />
+                            <% } %>
+                            <form action="/" method="POST" id="actionForm-<%= i %>" class="form-edit-delete">
+                                <input type="hidden" name="action" id="actionInput-<%= i %>" value="" />
+                                <input type="hidden" name="index" id="actionIndex-<%= i %>" value=<%= i %> />
+                                <input type="button" class="post-button" value="Ver detalhes »" onclick="setAction('<%= i %>', 'view')" />
+                            </form>
+                        </div>
+                    <% } %>
+                </div>
+                
+                <div class="right-column">
+                    <div class="col-md-4">
+                    <div class="position-sticky" style="top: 2rem;">
+                        <div class="p-4 mb-3 bg-body-tertiary rounded about">
+                            <h4 class="fst-italic">Sobre</h4>
+                            <p class="mb-0">Somos a EcoSphere, blog voltado para o compartilhamento de artigos e notícias sobre a curiosidades e experiências de sustentabilidade e ecologia. Fique a vontade para navegar e explorar conteúdos enriquecedores e ficar de olho nas mais novas notícias desse mundo.</p>
+                        </div>
+                
+                        <% if(posts.length > 2) { %>
+                            <div>
+                                <h4 class="fst-italic">Posts recentes</h4>
+                                <ul class="list-unstyled">
+                                <li>
+                                    <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="/Details4">
+                                    <!-- <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> -->
+                                    <img class="bd-placeholder-img" width="100%" height="96" src="images/paisagem.jpg" alt="paisagem">
+                                    <div class="col-lg-8">
+                                        <h6 class="mb-0"><%= posts[posts.length-3].title %></h6>
+                                        <small class="text-body-secondary">15 de Janeiro de 2025</small>
+                                    </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="/Details5">
+                                    <img class="bd-placeholder-img" width="100%" height="96" src="images/paisagem.jpg" alt="paisagem">
+                                    <div class="col-lg-8">
+                                        <h6 class="mb-0"><%= posts[posts.length-2].title %></h6>
+                                        <small class="text-body-secondary">14 de Janeiro de 2025</small>
+                                    </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="/Details6">
+                                    <img class="bd-placeholder-img" width="100%" height="96" src="images/paisagem.jpg" alt="paisagem">
+                                    <div class="col-lg-8">
+                                        <h6 class="mb-0"><%= posts[posts.length-1].title %></h6>
+                                        <small class="text-body-secondary">13 de Janeiro de 2025</small>
+                                    </div>
+                                    </a>
+                                </li>
+                                </ul>
+                            </div>
+                        <% } %>
+                
+                            <div class="p-4">
+                                <h4 class="fst-italic">Arquivos</h4>
+                                <ol class="list-unstyled mb-0">
+                                <li><a href="#">Março 2025</a></li>
+                                <li><a href="#">Fevereiro 2025</a></li>
+                                <li><a href="#">Janeiro 2025</a></li>
+                                <li><a href="#">Dezembro 2024</a></li>
+                                <li><a href="#">Novembro 2024</a></li>
+                                <li><a href="#">Outubro 2024</a></li>
+                                <li><a href="#">Setembro 2024</a></li>
+                                <li><a href="#">Agosto 2024</a></li>
+                                <li><a href="#">Julho 2024</a></li>
+                                <li><a href="#">Junho 2024</a></li>
+                                <li><a href="#">Maio 2024</a></li>
+                                <li><a href="#">Abril 2024</a></li>
+                                </ol>
+                            </div>
+                
+                            <div class="p-4">
+                                <h4 class="fst-italic">Redes Sociais</h4>
+                                <ol class="list-unstyled">
+                                <li><a href="https://github.com/Bruno-Ogata">GitHub</a></li>
+                                <li><a href="https://x.com/BrunoOgata2">Twitter</a></li>
+                                <li><a href="https://www.facebook.com/brunohideki.amadeuogata?locale=pt_BR">Facebook</a></li>
+                                </ol>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="jumbotron">
+                <div class="container my-5">
+                    <div class="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
+                    <button type="button" class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"></button>
+                    <svg class="bi mt-5 mb-3" width="48" height="48"><use xlink:href="#check2-circle"></use></svg>
+                    <h1 class="text-body-emphasis">Ainda não há publicações</h1>
+                    <p class="col-lg-6 mx-auto mb-4">
+                        Compartilhe suas experiências e curiosidades sobre sustentabilidade e inspire outros a adotarem um estilo de vida mais verde. 🍃💚
+                    </p>
+                    <button class="btn btn-primary px-5 mb-5" type="button">
+                        <a href="/Create">Criar post</a> 
+                    </button>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        
+    <script>
+        function setAction(index, action) {
+            document.getElementById(`actionInput-${index}`).value = action;
+            document.getElementById(`actionForm-${index}`).submit();
+        }
+    </script>  
+<!-- Footer -->
+<%- include("partials/footer.ejs") %> 
+
